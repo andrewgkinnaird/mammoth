@@ -1,14 +1,19 @@
 var mammoth = require("mammoth");
 
-const getHTML = ()=>{
-    mammoth
-    .convertToHtml({path: "table.docx"})
+const getRawText = ()=>{
+    return (mammoth
+    .extractRawText({path: "table.docx"})
     .then(function(result){
         console.log(result.value);
         return result.value; // The generated HTML
-    })
-    .done();
+    }));
+   
 };
+
+const convertTextToArray = (text)=>{
+    return text.split("\n\n");
+}
  
 
-getHTML()
+getRawText()
+.then(result => console.log(convertTextToArray(result)));
